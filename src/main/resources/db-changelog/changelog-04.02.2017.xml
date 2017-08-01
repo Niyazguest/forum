@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="04.02.2017-changeset-1" author="Niyaz">
+        <createTable tableName="news">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="news_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="title" type="TEXT"/>
+            <column name="text" type="TEXT"/>
+            <column name="date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="04.02.2017-changeset-2" author="Niyaz">
+        <createTable tableName="attachment">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="news_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="05.02.2017-changeset-3" author="Niyaz">
+        <addForeignKeyConstraint baseTableName="attachment" baseColumnNames="news_id" constraintName="fk_attachment_1"
+                                 referencedTableName="news"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="05.02.2017-changeset-4" author="Niyaz">
+        <createTable tableName="photo_attachment">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="file_75" type="TEXT"/>
+            <column name="file_130" type="TEXT"/>
+            <column name="file_604" type="TEXT"/>
+            <column name="file_807" type="TEXT"/>
+            <column name="width_original" type="INTEGER"/>
+            <column name="height_original" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="05.02.2017-changeset-5" author="Niyaz">
+        <addForeignKeyConstraint baseTableName="photo_attachment" baseColumnNames="id"
+                                 constraintName="fk_photo_attachment_1"
+                                 referencedTableName="attachment"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="05.02.2017-changeset-6" author="Niyaz">
+        <createTable tableName="video_attachment">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" type="TEXT"/>
+            <column name="cover_photo_url" type="TEXT"/>
+            <column name="video_url" type="TEXT"/>
+            <column name="owner_id" type="TEXT"/>
+            <column name="video_id" type="TEXT"/>
+            <column name="access_key" type="TEXT"/>
+            <column name="size" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="05.02.2017-changeset-7" author="Niyaz">
+        <addForeignKeyConstraint baseTableName="video_attachment" baseColumnNames="id"
+                                 constraintName="fk_video_attachment_1"
+                                 referencedTableName="attachment"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="05.02.2017-changeset-8" author="Niyaz">
+        <createTable tableName="link_attachment">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="url" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="05.02.2017-changeset-9" author="Niyaz">
+        <addForeignKeyConstraint baseTableName="link_attachment" baseColumnNames="id"
+                                 constraintName="fk_link_attachment_1"
+                                 referencedTableName="attachment"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>
